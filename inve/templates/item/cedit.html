@@ -1,0 +1,281 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block content %}
+    <!-- Main content -->
+    <section class="content">
+      <!-- Top Box-->
+      <div class="box">
+        <div class="box-body">
+          <strong>
+           item info
+          </strong>
+        </div>
+      </div><!--Top Box End-->
+      <!-- Default box -->
+            <div class="box">
+
+          <!-- Custom Tabs -->
+          <div class="nav-tabs-custom" stock_id="tabs">
+            <ul class="nav nav-tabs">
+              <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">general_settings</a></li>
+              <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">sales_pricing</a></li>
+              <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="true">purchase_pricing</a></li>
+            </ul>
+            <div class="tab-content">
+            <div class="tab-pane" stock_id="tab_1">
+                <div class="row">
+                <div class="col-md-6">
+                  <h4 class="text-info text-center">item_info</h4>
+                <form action="" method="post" stock_id="itemAddForm" class="form-horizontal" enctype="multipart/form-data">
+                  <input type="hstock_idden" value="{{csrf_token}}" name="_token" stock_id="token">
+                  <div class="box-body">
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label require" for="inputEmail3">item_stock_id</label>
+                      <div class="col-sm-9">
+                        <input type="text" placeholder="item_stock_id" class="form-control" name="stock_id">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label require" for="inputEmail3">item_name</label>
+
+                      <div class="col-sm-9">
+                        <input type="text" placeholder="item_name" class="form-control valdation_check" name="description">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" for="inputEmail3">category</label>
+                      <div class="col-sm-9">
+                        <select class="form-control select2" name="category_stock_id" stock_id="cat">
+
+                        </select>
+                      </div>
+                    </div>
+
+                      <div class="form-group">
+                      <label class="col-sm-3 control-label require" for="inputEmail3">unit</label>
+                      <div class="col-sm-9">
+                        <select class="form-control" name="units" stock_id="unit">
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" for="inputEmail3">item_tax_type</label>
+                      <div class="col-sm-9">
+                        <select class="form-control select2" name="tax_type_stock_id">
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" for="inputEmail3">item_des</label>
+                      <div class="col-sm-9">
+                        <textarea placeholder="item description..." rows="3" class="form-control" name="long_description"></textarea>
+                      </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" for="inputEmail3">picture</label>
+                      <div class="col-sm-9">
+                        <input type="file" class="form-control input-file-field" name="item_image">
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /.box-body -->
+                  <div class="box-footer">
+                    <a href="" class="btn btn-info btn-flat">cancel</a>
+                    <button class="btn btn-primary pull-right btn-flat" type="submit">submit</button>
+                  </div>
+                  <!-- /.box-footer -->
+                </form>
+              </div>
+              </div>
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane <?= ($tab=='sale') ? 'active' :'' ?>" stock_id="tab_2">
+
+                <div class="row">
+                <div class="col-md-6">
+                  <h4 class="text-info text-center">Sales Price Information</h4>
+                <form action="#" method="post" stock_id="salesInfoForm" class="form-horizontal">
+                  <input type="hstock_idden" value="{{csrf_token}}" name="_token" stock_id="token">
+                  <input type="hstock_idden" value="<?= isset($stock_id) ? $stock_id : ''?>" name="stock_id" stock_id="stock_id">
+                  <input type="hstock_idden" value="USD" name="curr_abrev" stock_id="curr_abrev">
+                  <div class="box-body">
+
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label require" for="inputEmail3">sales_type</label>
+
+                      <div class="col-sm-9">
+                        <select class="form-control select2" name="sales_type_stock_id">
+                        <option value="">select one</option>
+                        </select>
+
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label require" for="inputEmail3">price</label>
+
+                      <div class="col-sm-9">
+                        <input type="text" placeholder="price" class="form-control valdation_check" stock_id="price" name="price">
+                        <span stock_id="price" style="color: red"></span>
+                      </div>
+                    </div>
+
+                  </div>
+                  <!-- /.box-body -->
+                  <div class="box-footer">
+                    <a href="#" class="btn btn-primary custom-btn">cancel</a>
+                    <button class="btn btn-info pull-right custom-btn" type="next">submit</button>
+                  </div>
+                  <!-- /.box-footer -->
+                </form>
+              </div>
+              </div>
+
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane <?= ($tab=='purchase') ? 'active' :'' ?>" stock_id="tab_3">
+                <div class="row">
+                <div class="col-md-6">
+                  <h4 class="text-info text-center">Purchase Price Information</h4>
+                <form action="" method="post" stock_id="purchaseInfoForm" class="form-horizontal">
+                  <input type="hstock_idden" value="{{csrf_token}}" name="_token" stock_id="token">
+                  <input type="hstock_idden" value="<?= isset($stock_id) ? $stock_id : ''?>" name="stock_id" stock_id="stock_id">
+
+                  <div class="box-body">
+
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" for="inputEmail3">supplier<span class="text-danger"> *</span></label>
+
+                      <div class="col-sm-9">
+                        <select class="form-control select2" name="supplier_stock_id">
+
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="inputEmail3">price <span class="text-danger"> *</span></label>
+                      <div class="col-sm-9">
+                        <input type="text" placeholder="price" class="form-control" name="price">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="inputEmail3">supplier_unit_of_messure <span class="text-danger"> *</span></label>
+                      <div class="col-sm-9">
+                        <input type="text" placeholder="supplier_unit_of_messure" class="form-control" name="suppliers_uom">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" for="inputEmail3">conversion_factor</label>
+                      <div class="col-sm-9">
+                        <input type="text" placeholder="conversion_factor" class="form-control" name="conversion_factor">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" for="inputEmail3">supplier_description</label>
+                      <div class="col-sm-9">
+                        <input type="text" placeholder="supplier_description" class="form-control" name="supplier_description">
+                      </div>
+                    </div>
+
+
+                  </div>
+                  <!-- /.box-body -->
+                  <div class="box-footer">
+                    <a href="" class="btn btn-primary custom-btn">cancel</a>
+                    <button class="btn btn-info pull-right custom-btn" type="submit">submit</button>
+                  </div>
+                  <!-- /.box-footer -->
+                </form>
+              </div>
+              </div>
+
+              </div>
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div>
+          <!-- nav-tabs-custom -->
+
+          </div>
+        <div class="clearfix"></div>
+        <!-- /.box-footer-->
+
+      <!-- /.box -->
+
+    </section>
+{% endblock %}
+{% block js %}
+    <script type="text/javascript">
+$(document).ready(function () {
+
+    $(".select2").select2({
+       wstock_idth: '100%'
+    });
+
+    $(document).on('change','#cat', function() {
+      var option = $('option:selected', this).attr('data');
+      $("#unit").val(option);
+    });
+
+// Item form valstock_idation
+    $('#itemAddForm').valstock_idate({
+        rules: {
+            stock_id: {
+                required: true
+            },
+            description: {
+                required: true
+            },
+            category_stock_id:{
+               required: true
+            },
+            tax_type_stock_id:{
+               required: true
+            },
+            units:{
+               required: true
+            }
+        }
+    });
+    // Sales form valstock_idation
+    $('#salesInfoForm').valstock_idate({
+        rules: {
+            sales_type_stock_id: {
+                required: true
+            },
+            price: {
+                required: true
+            }
+        }
+    });
+
+    // Purchse form valstock_idation
+    $('#purchaseInfoForm').valstock_idate({
+        rules: {
+            supplier_stock_id: {
+                required: true
+            },
+            price: {
+                required: true
+            },
+            suppliers_uom: {
+                required: true
+            }
+        }
+    });
+
+});
+
+    </script>
+{% endblock %}

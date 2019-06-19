@@ -1,0 +1,216 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block content %}
+<!-- Main content -->
+<section class="content">
+
+  <div class="box box-default">
+    <div class="box-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="top-bar-title padding-bottom">outlets</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box">
+    <!-- form start -->
+    <form action="#" method="post" stock_id="outletAdd" class="form-horizontal">
+
+      <input type="hstock_idden" value="{{csrf_token}}" name="_token" stock_id="token">
+      <div class="box-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-6">
+              <h4 class="text-info text-center">outlet_info</h4>
+              <div class="form-group">
+                <label class="col-sm-4 control-label require" for="inputEmail3">name</label>
+
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" name="name">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label require" for="inputEmail3">email</label>
+
+                <div class="col-sm-8">
+                  <input type="email" class="form-control" name="email">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="inputEmail3">phone</label>
+
+                <div class="col-sm-8">
+                  <input type="text"  class="form-control" name="phone">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="inputEmail3">vat_no</label>
+
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" name="vat_no">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label" for="payment_code">payment_code</label>
+
+                <div class="col-sm-8">
+                  <input type="text"  class="form-control" name="payment_code">
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+              <h4 class="text-info text-center">shipping_address <button stock_id="copy" class="btn btn-default btn-xs" type="button">copy_address</button></h4>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label require" for="inputEmail3">street</label>
+
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" stock_id="ship_street" name="ship_street">
+                </div>
+              </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label require" for="region">region</label>
+
+              <div class="col-sm-8">
+                <select class="form-control select2" name="region" stock_id="region">
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label require" for="inputEmail3">province</label>
+              <div class="col-sm-8">
+                <select class="form-control select2" name="province" stock_id="province">
+                <option value="">select_one</option>
+                </select>
+              </div>
+            </div>
+            </div>
+
+          </div>
+        </div><br>
+      </div>
+      <!-- /.box-body -->
+
+      <div class="box-footer">
+        <a href="#" class="btn btn-info btn-flat">cancel</a>
+        <button class="btn btn-primary pull-right btn-flat" type="submit">submit</button>
+      </div>
+      <!-- /.box-footer -->
+    </form>
+
+  </div>
+
+  <!-- /.box-footer-->
+
+  <!-- /.box -->
+
+</section>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+
+
+
+    $("#region").change(function() {
+
+        var regionstock_id = $("#region").val();
+
+        var selectOption ='<option value="">select_one</option>';
+        $.ajax({
+            url: '',//
+            data:{                  // data that will be sent
+                 regionstock_id:regionstock_id
+            },
+            type: 'POST',
+            dataType: 'JSON',
+            success: function (data) {
+               // alert(JSON.stringify(data));
+               for (var i = 0, len = data.length; i < len; i++) {
+
+                  // console.log(data[i]);
+                  // alert(data[i].name);
+
+                  var selectOptionItem ='<option value="'+data[i].name+'">'+data[i].name+'</option>';
+
+                  selectOption=selectOption+selectOptionItem;
+                  // alert(selectOption);
+                    // $("#province").val();
+                    $("#province").html(selectOption);
+                 }
+
+              }
+            });
+
+
+        });
+
+
+
+$(".select2").select2();
+// Item form valstock_idation
+$('#customerAdd').valstock_idate({
+  rules: {
+    name: {
+      required: true
+    },
+    email:{
+      required: true
+    },
+
+    bill_street: {
+      required: true
+    },
+    bill_city:{
+      required: true
+    },
+    bill_state:{
+      required: true
+    },
+    bill_country_stock_id:{
+      required: true
+    },
+
+    bill_zipCode:{
+      required: true
+    },
+
+    ship_street: {
+      required: true
+    },
+    ship_city:{
+      required: true
+    },
+    ship_state:{
+      required: true
+    },
+    ship_country_stock_id:{
+      required: true
+    },
+    ship_zipCode:{
+      required: true
+    }
+
+  }
+});
+
+$('#copy').on('click', function() {
+
+  $('#ship_street').val($('#bill_street').val());
+  $('#ship_city').val($('#bill_city').val());
+  $('#ship_state').val($('#bill_state').val());
+  $('#ship_zipCode').val($('#bill_zipCode').val());
+
+  var bill_country = $('#bill_country_stock_id').val();
+
+  $("#ship_country_stock_id").val(bill_country).change();;
+
+});
+</script>
+{% endblock %}

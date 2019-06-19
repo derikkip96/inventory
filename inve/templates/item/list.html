@@ -1,0 +1,167 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block content %}
+     <!-- Main content -->
+    <section class="content">
+
+      <div class="box box-default">
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-6 col-sm-3 col-xs-12">
+             <div class="top-bar-title padding-bottom">item</div>
+            </div>
+
+			<div class="col-md-6 col-sm-9 col-xs-12">
+				<!-- <div class="col-md-6 col-sm-6 col-xs-12 top-cusTom-btn">
+{#					<a href="{{ URL::to('itemimport') }}" class="btn btn-block btn-default btn-flat btn-border-purple"><span class="fa fa-upload"> &nbsp;</span>{{ trans('message.extra_text.import_new_item') }}</a>#}
+				</div> -->
+				<div class="col-md-6 col-sm-6 col-xs-12 top_BTN">
+					<a href="#" class="btn btn-block btn-default btn-flat btn-border-orange"><span class="fa fa-plus"> &nbsp;</span>add_new_item'</a>
+				</div>
+
+        <div class="col-md-6 col-sm-6 col-xs-12 top_BTN">
+					<a href="#" class="btn btn-block btn-default btn-flat btn-border-orange"><span class="fa fa-plus"> &nbsp;</span>view_order_bundle</a>
+				</div>
+			</div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Box-->
+      <div class="box">
+        <div class="box-body">
+          <div class="col-md-2 col-xs-6 border-right text-center">
+              <h3 class="bold"></h3>
+              <span class="text-info bold">item</span>
+          </div>
+          <div class="col-md-2 col-xs-6 border-right text-center">
+              <h3 class="bold"> 0 </h3>
+              <span class="text-info bold">quantity</span>
+          </div>
+
+
+          <div class="col-md-3 col-xs-6 border-right text-center">
+              <h3 class="bold"></h3>
+              <span class="text-info">on_hand_cost_value</span>
+          </div>
+          <div class="col-md-3 col-xs-6 border-right text-center">
+              <h3 class="bold"></h3>
+              <span class="text-info">on_hand_retail_value</span>
+          </div>
+          <div class="col-md-2 col-xs-6 text-center">
+              <h3 class="bold">
+
+              </h3>
+              <span class="text-info">on_hand_profit_value</span>
+          </div>
+
+
+        </div>
+        <br>
+      </div><!--Top Box End-->
+
+      <!-- Default box -->
+      <div class="box">
+
+            <div class="box-header">
+              <a href="#"><button class="btn btn-default btn-flat btn-border-info"><span class="fa fa-download"> &nbsp;</span>download_csv</button></a>
+            </div>
+
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="itemList" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th class="text-center">picture</th>
+                  <th class="text-center">sku</th>
+                  <th class="text-center">category</th>
+                  <th class="text-center">on_hand</th>
+                  <th class="text-center">purchase</th>
+                  <th class="text-center">wholesale</th>
+                  <th class="text-center">retail</th>
+                  <th class="text-center">status</th>
+                  <th width="14%" class="text-center">action</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr>
+                  <td width="5%" class="text-center">
+{##}
+{#                    @if (!empty($data->img))#}
+{#                    <img src='{{url("public/uploads/itemPic/$data->img")}}' alt="" width="50" height="50">#}
+{#                    @else#}
+{#                    <img src='{{url("public/uploads/default-image.png")}}' alt="" width="50" height="50">#}
+{#                    @endif#}
+
+                  </td>
+                  <td class="text-center"></td>
+                  <td class="text-center"></td>
+                  <td class="text-center"></td>
+                  <td class="text-center"></td>
+                  <td class="text-center"></td>
+                  <td class="text-center"></td>
+                  <td class="text-center">
+
+                    <span class='label label-success'>active</span>
+                    <span class='label label-danger'>inactive</span>
+                  </td>
+
+                  <td class="text-center">
+                      <a title="edit" class="btn btn-xs btn-primary" href='#'><span class="fa fa-edit"></span></a> &nbsp;
+                      <form method="POST" action="#" accept-charset="UTF-8" style="display:inline">
+                          {{ csrf_field }}
+                          <button title="Delete" class="btn btn-xs btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete" data-title="delete_item_header" data-message="delete_item">
+                              <i class="glyphicon glyphicon-trash"></i>
+                          </button> &nbsp;
+                      </form>
+
+                  </td>
+                </tr>
+
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+      <!-- /.box -->
+
+        <div class="modal fade" id="confirmDelete" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Delete Parmanently</h4>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure about this ?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
+                <button type="button" class="btn btn-danger" id="confirm">delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+  $(function () {
+    $("#itemList").DataTable({
+      "order": [],
+
+      "columnDefs": [ {
+        "targets": 8,
+        "orderable": false
+        } ],
+
+    });
+
+  });
+
+    </script>
+{% endblock %}

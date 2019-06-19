@@ -1,0 +1,298 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block content %}
+    <!-- Main content -->
+    <section class="content">
+      <!-- Top Box-->
+      <div class="box">
+        <div class="box-body">
+          <strong>
+           item info
+          </strong>
+        </div>
+      </div><!--Top Box End-->
+      <!-- Default box -->
+            <div class="box">
+
+          <!-- Custom Tabs -->
+          <div class="nav-tabs-custom" id="tabs">
+            <ul class="nav nav-tabs">
+              <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">general_settings</a></li>
+              <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">sales_pricing</a></li>
+              <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="true">purchase_pricing</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane" id="tab_1">
+                <div class="row">
+                <div class="col-md-6">
+                  <h4 class="text-info text-center">item_info</h4>
+                <form action="" method="post" id="itemAddForm" class="form-horizontal" enctype="multipart/form-data">
+                     {% csrf_token %}
+                    {{ itemform.non_field_errors }}
+
+                      {{itemform.source.errors }}
+                      {{ itemform.source }}
+                  <div class="box-body">
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label require" for="inputEmail3">item_id</label>
+                      <div class="col-sm-9">
+                          {{ itemform.stock_id.errors }}
+                          {{ itemform.stock_id }}
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label require" for="inputEmail3">item_name</label>
+
+                      <div class="col-sm-9">
+                          {{ itemform.description.errors }}
+                        {{ itemform.description }}
+{#                        <input type="text" placeholder="item_name" class="form-control valdation_check" name="description">#}
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" for="inputEmail3">category</label>
+                      <div class="col-sm-9">
+                          {{ itemform.category.errors }}
+                        {{ itemform.category }}
+{#                        <select class="form-control select2" name="category_id" id="cat">#}
+{##}
+{#                        </select>#}
+                      </div>
+                    </div>
+
+                      <div class="form-group">
+                      <label class="col-sm-3 control-label require" for="inputEmail3">unit</label>
+                      <div class="col-sm-9">
+                          {{ itemform.unit.errors }}
+                        {{ itemform.unit }}
+{#                        <select class="form-control" name="units" id="unit">#}
+{#                        </select>#}
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" for="inputEmail3">item_tax_type</label>
+                      <div class="col-sm-9">
+                          {{ itemform.tax.errors }}
+                        {{ itemform.tax }}
+{#                        <select class="form-control select2" name="tax_type_id">#}
+{#                        </select>#}
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" for="inputEmail3">item_des</label>
+                      <div class="col-sm-9">
+                          {{ itemform.long_description.errors }}
+                        {{ itemform.long_description }}
+{#                        <textarea placeholder="item description..." rows="3" class="form-control" name="long_description"></textarea>#}
+                      </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" for="inputEmail3">picture</label>
+                      <div class="col-sm-9">
+                           {{ itemform.image.errors }}
+                        {{ itemform.image }}
+{#                        <input type="file" class="form-control input-file-field" name="item_image">#}
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /.box-body -->
+                  <div class="box-footer">
+                    <a href="" class="btn btn-info btn-flat">cancel</a>
+                    <button class="btn btn-primary pull-right btn-flat" type="submit">submit</button>
+                  </div>
+                  <!-- /.box-footer -->
+                </form>
+              </div>
+              </div>
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane <?= ($tab=='sale') ? 'active' :'' ?>" id="tab_2">
+
+                <div class="row">
+                <div class="col-md-6">
+                  <h4 class="text-info text-center">Sales Price Information</h4>
+                <form action="#" method="post" id="salesInfoForm" class="form-horizontal">
+                  <input type="hidden" value="{{csrf_token}}" name="_token" id="token">
+                  <input type="hidden" value="<?= isset($id) ? $id : ''?>" name="id" id="id">
+                  <input type="hidden" value="USD" name="curr_abrev" id="curr_abrev">
+                  <div class="box-body">
+
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label require" for="inputEmail3">sales_type</label>
+
+                      <div class="col-sm-9">
+                        <select class="form-control select2" name="sales_type_id">
+                        <option value="">select one</option>
+                        </select>
+
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label require" for="inputEmail3">price</label>
+
+                      <div class="col-sm-9">
+                        <input type="text" placeholder="price" class="form-control valdation_check" id="price" name="price">
+                        <span id="price" style="color: red"></span>
+                      </div>
+                    </div>
+
+                  </div>
+                  <!-- /.box-body -->
+                  <div class="box-footer">
+                    <a href="#" class="btn btn-primary custom-btn">cancel</a>
+                    <button class="btn btn-info pull-right custom-btn" type="next">submit</button>
+                  </div>
+                  <!-- /.box-footer -->
+                </form>
+              </div>
+              </div>
+
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane <?= ($tab=='purchase') ? 'active' :'' ?>" id="tab_3">
+                <div class="row">
+                <div class="col-md-6">
+                  <h4 class="text-info text-center">Purchase Price Information</h4>
+                <form action="" method="post" id="purchaseInfoForm" class="form-horizontal">
+                  <input type="hidden" value="{{csrf_token}}" name="_token" id="token">
+                  <input type="hidden" value="<?= isset($id) ? $id : ''?>" name="id" id="id">
+
+                  <div class="box-body">
+
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" for="inputEmail3">supplier<span class="text-danger"> *</span></label>
+
+                      <div class="col-sm-9">
+                        <select class="form-control select2" name="supplier_id">
+
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="inputEmail3">price <span class="text-danger"> *</span></label>
+                      <div class="col-sm-9">
+                        <input type="text" placeholder="price" class="form-control" name="price">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="inputEmail3">supplier_unit_of_messure <span class="text-danger"> *</span></label>
+                      <div class="col-sm-9">
+                        <input type="text" placeholder="supplier_unit_of_messure" class="form-control" name="suppliers_uom">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" for="inputEmail3">conversion_factor</label>
+                      <div class="col-sm-9">
+                        <input type="text" placeholder="conversion_factor" class="form-control" name="conversion_factor">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" for="inputEmail3">supplier_description</label>
+                      <div class="col-sm-9">
+                        <input type="text" placeholder="supplier_description" class="form-control" name="supplier_description">
+                      </div>
+                    </div>
+
+
+                  </div>
+                  <!-- /.box-body -->
+                  <div class="box-footer">
+                    <a href="" class="btn btn-primary custom-btn">cancel</a>
+                    <button class="btn btn-info pull-right custom-btn" type="submit">submit</button>
+                  </div>
+                  <!-- /.box-footer -->
+                </form>
+              </div>
+              </div>
+
+              </div>
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div>
+          <!-- nav-tabs-custom -->
+
+          </div>
+        <div class="clearfix"></div>
+        <!-- /.box-footer-->
+
+      <!-- /.box -->
+
+    </section>
+{% endblock %}
+{% block js %}
+    <script type="text/javascript">
+$(document).ready(function () {
+
+    $(".select2").select2({
+       width: '100%'
+    });
+
+    $(document).on('change','#cat', function() {
+      var option = $('option:selected', this).attr('data');
+      $("#unit").val(option);
+    });
+
+// Item form validation
+    $('#itemAddForm').validate({
+        rules: {
+            id: {
+                required: true
+            },
+            description: {
+                required: true
+            },
+            category_id:{
+               required: true
+            },
+            tax_type_id:{
+               required: true
+            },
+            units:{
+               required: true
+            }
+        }
+    });
+    // Sales form validation
+    $('#salesInfoForm').validate({
+        rules: {
+            sales_type_id: {
+                required: true
+            },
+            price: {
+                required: true
+            }
+        }
+    });
+
+    // Purchse form validation
+    $('#purchaseInfoForm').validate({
+        rules: {
+            supplier_id: {
+                required: true
+            },
+            price: {
+                required: true
+            },
+            suppliers_uom: {
+                required: true
+            }
+        }
+    });
+
+});
+
+    </script>
+{% endblock %}

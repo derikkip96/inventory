@@ -1,0 +1,257 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block content %}
+<section class="content">
+
+      <div class="row">
+        <div class="col-md-3">
+          <div class="box box-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title">general_setting</h3>
+  </div>
+  <div class="box-body no-padding" style="display: block;">
+    <ul class="nav nav-pills nav-stacked">
+
+      <li><a href="#">item_category</a></li>
+
+      <li><a href="#">extra_text.units</a></li>
+
+      <li><a href="#">db_backup</a></li>
+
+      <li ><a href="#">email_setup</a></li>
+
+
+
+    </ul>
+  </div>
+  <!-- /.box-body -->
+</div>
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+
+      <div class="box box-default">
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-6">
+             <div class="top-bar-title padding-bottom">item category</div>
+            </div>
+
+            <div class="col-md-3 top-left-btn">
+                <a href="#" class="btn btn-block btn-default btn-flat btn-border-purple"><span class="fa fa-upload"> &nbsp;</span>import_new_categry</a>
+            </div>
+
+            <div class="col-md-3 top-right-btn">
+                <a href="javascript:void(0)" data-toggle="modal" data-target="#add-category" class="btn btn-block btn-default btn-flat btn-border-orange"><span class="fa fa-plus"> &nbsp;</span>add_new_category</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+          <div class="box">
+            <div class="box-header">
+              <a href="#"><button class="btn btn-default btn-flat btn-border-info"><span class="fa fa-download"> &nbsp;</span>downolad_csv</button></a>
+            </div>
+
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>category</th>
+                  <th>unit</th>
+                  <th width="5%">action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td><a class="edit_category" id="" href="javascript:void(0)"></a></td>
+                  <td></td>
+                  <td>
+                      <a title="edit" href="javascript:void(0)" class="btn btn-xs btn-primary edit_category" id=""><span class="fa fa-edit"></span></a> &nbsp;
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+        <!-- /.col -->
+      </div>
+      </div>
+      <!-- /.row -->
+
+    </section>
+
+    <div id="add-category" class="modal fade" role="dialog" style="display: none;">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h4 class="modal-title">add_new</h4>
+          </div>
+          <div class="modal-body">
+            <form action="#" method="post" id="myform1" class="form-horizontal">
+                {{ csrf_token }}
+
+              <div class="form-group">
+                <label class="col-sm-3 control-label require" for="inputEmail3">category</label>
+                <div class="col-sm-6">
+                  <input type="text" placeholder="category" class="form-control" name="description">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label require" for="inputEmail3">unit</label>
+
+                <div class="col-sm-6">
+                  <select class="form-control valdation_select" name="dflt_units" >
+                  <option value="">select_one</option>
+                    <option ></option>
+                  </select>
+                </div>
+              </div>
+
+
+              <div class="form-group">
+                <label for="btn_save" class="col-sm-3 control-label"></label>
+                <div class="col-sm-6">
+                  <button type="button" class="btn btn-info btn-flat" data-dismiss="modal">close</button>
+                  <button type="submit" class="btn btn-primary btn-flat">submit</button>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="edit-category" class="modal fade" role="dialog" style="display: none;">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h4 class="modal-title">add_new</h4>
+          </div>
+          <div class="modal-body">
+            <form action="#" method="post" id="editCat" class="form-horizontal">
+                {{ csrf_token }}
+
+              <div class="form-group">
+                <label class="col-sm-3 control-label require" for="inputEmail3">category</label>
+
+                <div class="col-sm-6">
+                  <input type="text" placeholder="Name" class="form-control" id="name" name="description">
+                  <span id="val_name" style="color: red"></span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label require" for="inputEmail3">unit</label>
+
+                <div class="col-sm-6">
+                  <select class="form-control" name="dflt_units" id="dflt_units">
+                  </select>
+                </div>
+              </div>
+              <input type="hidden" name="cat_id" id="cat_id">
+
+              <div class="form-group">
+                <label for="btn_save" class="col-sm-3 control-label"></label>
+                <div class="col-sm-6">
+                  <button type="button" class="btn btn-info btn-flat" data-dismiss="modal">close</button>
+                  <button type="submit" class="btn btn-primary btn-flat">submit</button>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="modal fade" id="confirmDelete" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Delete Parmanently</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure about this ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
+        <button type="button" class="btn btn-danger" id="confirm">delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+{% block js %}
+    <script type="text/javascript">
+      $(function () {
+        $("#example1").DataTable({
+          "columnDefs": [ {
+            "targets": 2,
+            "orderable": false
+            } ],
+
+            //"pageLength": 5
+        });
+
+      });
+
+
+      $('.edit_category').on('click', function() {
+        var id = $(this).attr("id");
+
+        $.ajax({
+            url: '{{product_list}}',
+            data:{  // data that will be sent
+                id:id
+            },
+            type: 'POST',
+            dataType: 'JSON',
+            success: function (data) {
+
+                $('#name').val(data.name);
+                $('#dflt_units').val(data.dflt_units);
+                $('#cat_id').val(data.category_id);
+
+                $('#edit-category').modal();
+            }
+        });
+
+    });
+
+      $('#myform1').validate({
+        rules: {
+            description: {
+                required: true
+            },
+            dflt_units: {
+                required: true
+            }
+        }
+    });
+
+    $('#editCat').validate({
+        rules: {
+            description: {
+                required: true
+            },
+            dflt_units: {
+                required: true
+            }
+        }
+    });
+    </script>
+{% endblock %}

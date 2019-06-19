@@ -1,0 +1,493 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Vuba</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <meta name="_token" content="{!! csrf_token() !!}"/>
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %} ">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'bootstrap/css/font-awesome.min.css' %}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="{% static 'bootstrap/css/ionicons.min.css' %}">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{% static 'plugins/datatables/dataTables.bootstrap.css' %}">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}">
+  <link rel="stylesheet" href="{% static 'dist/css/custom.css' %}">
+  <link rel="stylesheet" href="{% static 'dist/css/skins/skin-red-light.min.css' %}">
+  <!-- Date Picker -->
+  <link rel="stylesheet" href="{% static 'plugins/datepicker/datepicker3.css' %}">
+  <link rel="stylesheet" href="{% static 'dist/css/jquery-ui.min.css' %}" type="text/css" />
+  <link rel="stylesheet" href="{% static 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css' %}" type="text/css" />
+  <link rel="stylesheet" href="{% static 'dist/css/custom.css' %}">
+  <link rel="stylesheet" href="{% static 'dist/css/bootstrap-confirm-delete.css' %}">
+
+{#  <script type="text/javascript">#}
+{#    var SITE_URL = "{{URL::to('/')}}";#}
+{#  </script>#}
+{#  <link rel='shortcut icon' href="{{URL::to('/')}}/favicon.ico" type='image/x-icon'/ >#}
+</head>
+
+    <body class="hold-transition skin-red-light sidebar-mini">
+    <div class="wrapper">
+
+
+      <header class="main-header">
+        <!-- Logo -->
+        <a href="#" class="logo">
+          <!-- mini logo for sidebar mini 50x50 pixels -->
+          <span class="logo-mini" style="color:#1B6935 !important;"><b></b></span>
+          <!-- logo for regular state and mobile devices -->
+          <span class="logo-lg"><img src="{% static "img/company.jpeg" %}" class="img"> </span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+
+       <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <!-- Sidebar toggle button-->
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" style="color:#1B6935 !important;">
+            <span class="sr-only">Toggle navigation</span>
+          </a>
+          <div class="nav navbar-custom-menu">
+              <ul class="nav navbar-nav">
+                   <li class="dropdown notifications-menu">
+                   </li>
+                    <ul class="dropdown-menu task-bar">
+                      <li class="header">Select Language</li>
+                    </ul>
+              </ul>
+          </div>
+        </nav>
+
+      </header>
+    {#    closing header #}
+    {##}
+    {#  <!-- Left side column. contains the logo and sidebar -->#}
+    {##}
+    {#  @include('layouts.includes.sidebar')#}
+    <aside class="main-sidebar" style="background-color: #0f0f0f; ">
+  <!-- sidebar: style can be found in sidebar.less -->
+  <section class="sidebar">
+
+    <ul class="sidebar-menu">
+
+      <li>
+        <a href="#">
+          <i class="fa fa-dashboard"  style="color:#00A751;!important"></i> <span>dashboard </span>
+        </a>
+      </li>
+
+      <li>
+        <a href="#">
+          <i class="fa fa-dashboard"  style="color:#00A751;!important"> </i> <span>dashboard</span>
+        </a>
+      </li>
+
+      <li >
+        <a href="#">
+          <i class="fa fa-users"  style="color:#00A751;!important"></i> <span>customers</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fa fa-cubes"  style="color:#00A751;!important"></i>
+          <span>item</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="#">
+          <i class="fa fa-object-group"  style="color:#00A751;!important"></i>
+          <span>purchase_orders</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fa fa-shopping-basket"  style="color:#00A751;!important"></i>
+          <span>sales</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"  style="color:#00A751;!important"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+
+          <li >
+            <a href="#">
+              <span>sales_order_no</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span>invoices</span>
+            </a>
+          </li>
+
+          <li >
+            <a href="#">
+              <span>payments</span>
+            </a>
+          </li>
+          <li >
+            <a href="#">
+              <span>shipments</span>
+            </a>
+          </li>
+
+
+        </ul>
+      </li>
+
+
+
+
+
+  <li >
+    <a href="#">
+      <i class="fa fa-shopping-cart"  style="color:#00A751;!important"></i> <span>purchases</span>
+    </a>
+  </li>
+
+  <li>
+    <a href="#">
+      <i class="fa fa-truck"  style="color:#00A751;!important"></i> <span>stock-move-list</span>
+    </a>
+  </li>
+  <li >
+    <a href="#">
+      <i class="fa fa-institution"  style="color:#00A751;!important"></i> <span>outlets</span>
+    </a>
+  </li>
+
+  <li >
+    <a href="#">
+      <i class="fa fa-bar-chart"  style="color:#00A751;!important"></i>
+      <span>report</span>
+      <span class="pull-right-container">
+        <i class="fa fa-angle-left pull-right"  style="color:#00A751;!important"></i>
+      </span>
+    </a>
+    <ul class="treeview-menu">
+
+      <li>
+        <a href="#">
+          <span>inventory_stock_on_hand</span>
+        </a>
+      </li>
+    </ul>
+  </li>
+
+    <ul class="treeview-menu">
+      <li >
+        <a href="#">
+          <span>company_details</span>
+        </a>
+      </li>
+
+
+      <li>
+        <a href="#">
+          <span>general_settings</span>
+        </a>
+      </li>
+
+
+      <li>
+        <a href="#">
+          <span>finance</span>
+        </a>
+      </li>
+
+
+
+      <li>
+        <a href="#">
+          <span>email_template</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="#">
+          <span>preference</span>
+        </a>
+      </li>
+      <li >
+        <a href="#">
+          <span>print_menu</span>
+        </a>
+      </li>
+
+    </ul>
+  </li>
+</ul>
+</section>
+<!-- /.sidebar -->
+</aside>
+
+      <div class="content-wrapper">
+{#        @include('layouts.includes.notifications')#}
+
+
+        {% block content %}
+
+	    {% endblock %}
+      </div>
+
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+              <b>Version</b> 1.5.0
+            </div>
+            <strong>Copyright &copy; </strong> All rights
+            reserved.
+        </footer>
+
+    {#  @include('layouts.includes.sidebar_right')#}
+
+    <!-- Control Sidebar Right -->
+<aside class="control-sidebar control-sidebar-dark">
+  <!-- Create the tabs -->
+  <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+    <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+    <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+  </ul>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <!-- Home tab content -->
+    <div class="tab-pane" id="control-sidebar-home-tab">
+      <h3 class="control-sidebar-heading">Recent Activity</h3>
+      <ul class="control-sidebar-menu">
+        <li>
+          <a href="javascript:void(0)">
+            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+            <div class="menu-info">
+              <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+              <p>Will be 23 on April 24th</p>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)">
+            <i class="menu-icon fa fa-user bg-yellow"></i>
+
+            <div class="menu-info">
+              <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+
+              <p>New phone +1(800)555-1234</p>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)">
+            <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+
+            <div class="menu-info">
+              <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+
+              <p>nora@example.com</p>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)">
+            <i class="menu-icon fa fa-file-code-o bg-green"></i>
+
+            <div class="menu-info">
+              <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+
+              <p>Execution time 5 seconds</p>
+            </div>
+          </a>
+        </li>
+      </ul>
+      <!-- /.control-sidebar-menu -->
+
+      <h3 class="control-sidebar-heading">Tasks Progress</h3>
+      <ul class="control-sidebar-menu">
+        <li>
+          <a href="javascript:void(0)">
+            <h4 class="control-sidebar-subheading">
+              Custom Template Design
+              <span class="label label-danger pull-right">70%</span>
+            </h4>
+
+            <div class="progress progress-xxs">
+              <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)">
+            <h4 class="control-sidebar-subheading">
+              Update Resume
+              <span class="label label-success pull-right">95%</span>
+            </h4>
+
+            <div class="progress progress-xxs">
+              <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)">
+            <h4 class="control-sidebar-subheading">
+              Laravel Integration
+              <span class="label label-warning pull-right">50%</span>
+            </h4>
+
+            <div class="progress progress-xxs">
+              <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0)">
+            <h4 class="control-sidebar-subheading">
+              Back End Framework
+              <span class="label label-primary pull-right">68%</span>
+            </h4>
+
+            <div class="progress progress-xxs">
+              <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+            </div>
+          </a>
+        </li>
+      </ul>
+      <!-- /.control-sidebar-menu -->
+
+    </div>
+    <!-- /.tab-pane -->
+    <!-- Stats tab content -->
+    <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+    <!-- /.tab-pane -->
+    <!-- Settings tab content -->
+    <div class="tab-pane" id="control-sidebar-settings-tab">
+      <form method="post">
+        <h3 class="control-sidebar-heading">General Settings</h3>
+
+        <div class="form-group">
+          <label class="control-sidebar-subheading">
+            Report panel usage
+            <input type="checkbox" class="pull-right" checked>
+          </label>
+
+          <p>
+            Some information about this general settings option
+          </p>
+        </div>
+        <!-- /.form-group -->
+
+        <div class="form-group">
+          <label class="control-sidebar-subheading">
+            Allow mail redirect
+            <input type="checkbox" class="pull-right" checked>
+          </label>
+
+          <p>
+            Other sets of options are available
+          </p>
+        </div>
+        <!-- /.form-group -->
+
+        <div class="form-group">
+          <label class="control-sidebar-subheading">
+            Expose author name in posts
+            <input type="checkbox" class="pull-right" checked>
+          </label>
+
+          <p>
+            Allow the user to show his name in blog posts
+          </p>
+        </div>
+        <!-- /.form-group -->
+
+        <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+        <div class="form-group">
+          <label class="control-sidebar-subheading">
+            Show me as online
+            <input type="checkbox" class="pull-right" checked>
+          </label>
+        </div>
+        <!-- /.form-group -->
+
+        <div class="form-group">
+          <label class="control-sidebar-subheading">
+            Turn off notifications
+            <input type="checkbox" class="pull-right">
+          </label>
+        </div>
+        <!-- /.form-group -->
+
+        <div class="form-group">
+          <label class="control-sidebar-subheading">
+            Delete chat history
+            <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+          </label>
+        </div>
+        <!-- /.form-group -->
+      </form>
+    </div>
+    <!-- /.tab-pane -->
+  </div>
+</aside>
+
+        <div class="control-sidebar-bg"></div>
+    </div>
+    {#<!-- ./wrapper -->#}
+    {#@include('layouts.includes.script')#}
+        <!-- jQuery 2.2.3 -->
+<script src="{% static 'plugins/jQuery/jquery-2.2.3.min.js' %}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="{% static 'dist/js/jquery-ui.min.js' %}"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.6 -->
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<!-- Select2 -->
+<script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+<!-- DataTables -->
+<script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'plugins/datatables/dataTables.bootstrap.min.js' %}"></script>
+<script src="{% static 'plugins/moment.min.js' %}"></script>
+<!-- datepicker -->
+<script src="{% static 'plugins/datepicker/bootstrap-datepicker.js' %}"></script>
+
+<!-- FastClick -->
+<script src="{% static 'plugins/fastclick/fastclick.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'dist/js/app.min.js' %}"></script>
+
+<!-- Chart -->
+<script src="{% static 'plugins/chartjs/Chart.min.js' %}"></script>
+
+<script src="{% static 'dist/js/jquery.validate.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js' %}"></script>
+
+<script src="{% static 'plugins/bootstrap-confirm-delete.js' %}"></script>
+<script src="{% static 'dist/js/jquery.PrintArea.js' %}"></script>
+
+<script type="text/javascript">
+  $.ajaxSetup({
+     headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+  });
+</script>
+
+<script src="{% static 'plugins/highchart/highcharts.js' %}"></script>
+
+    {% block js %}
+
+    {% endblock %}
+    </body>
+</html>

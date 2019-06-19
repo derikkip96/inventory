@@ -1,0 +1,83 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block content %}
+    <!-- Main content -->
+    <section class="content">
+      <!-- Default box -->
+        <div class="row">
+          <div class="col-md-offset-3 col-md-6">
+            <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">Create Tax Type </h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form method="post" id="myform1" class="form-horizontal">
+            {% csrf_token %}
+                {{ taxform.non_field_errors }}
+                      {{ taxform.source.errors }}
+                      {{ taxform.source }}
+              <div class="box-body">
+                <div class="form-group">
+                  <label class="col-sm-3 control-label require" for="inputEmail3">name</label>
+
+                  <div class="col-sm-9">
+                       {{ taxform.name.errors }}
+                        {{ taxform.name }}
+                    <span id="val_name" style="color: red"></span>
+                  </div>
+                </div>
+                   <div class="form-group">
+                  <label class="col-sm-3 control-label require" for="inputEmail3">Tax rate</label>
+
+                  <div class="col-sm-9">
+                      {{ taxform.tax_rate.errors }}
+                        {{ taxform.tax_rate }}
+                    <span id="val_name" style="color: red"></span>
+                  </div>
+                </div>
+
+
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <a href="#" class="btn btn-info btn-flat">cancel</a>
+                <button class="btn btn-primary pull-right btn-flat" type="submit">submit</button>
+              </div>
+              <!-- /.box-footer -->
+            </form>
+          </div>
+          </div>
+
+        </div>
+
+        <!-- /.box-footer-->
+
+      <!-- /.box -->
+
+    </section>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $('#myform1').on('submit',function(e){
+                var flag = 0;
+                $('.valdation_check').each(function(){
+                    var id = $(this).attr('id');
+                    console.log($('#'+id).val());
+                    if ($('#'+id).val() == '')
+                    {
+                        $('#val_'+id).html("required");
+                        flag = 1;
+                    }
+                });
+                if(flag == 1) {
+                    e.preventDefault();
+                }
+        });
+        $(".valdation_check").on('keypress keyup',function() {
+            var nm = $(this).attr("id");
+            $('#val_'+nm).html("");
+        });
+    </script>
+{% endblock %}
