@@ -1,0 +1,274 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block content %}
+    <!-- Main content -->
+    <section class="content">
+
+      <div class="row">
+         <div class="col-md-3">
+         <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">finance_setting</h3>
+          </div>
+{#         include#}
+             {% include 'settings/financebar.html' %}
+          <!-- /.box-body -->
+        </div>
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+
+          <div class="box box-default">
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-9">
+                 <div class="top-bar-title padding-bottom">sales_types</div>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" data-toggle="modal" data-target="#add-saleType" class="btn btn-block btn-default btn-flat btn-border-orange"><span class="fa fa-plus"> &nbsp;</span>add_new</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>name</th>
+                  <th>tax_included</th>
+                   <th>default</th>
+                  <th width="5%">action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                  $type = [1,2];
+                ?>
+
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>
+
+                  <a title="edit" class="btn btn-xs btn-primary edit_saletype" id="#" href="javascript:void(0)"><span class="fa fa-edit"></span></a> &nbsp;
+
+                  <form method="POST" action="#" accept-charset="UTF-8" style="display:inline">
+                     {% csrf_token %}
+                      <button title="Delete" class="btn btn-xs btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete" data-title="delete_sales_type_header" data-message="delete_sales_type">
+                          <i class="glyphicon glyphicon-trash"></i>
+                      </button>
+                  </form>
+                  </td>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+<div id="add-saleType" class="modal fade" role="dialog" style="display: none;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">add_new</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" action='#' method="post" id="addTex">
+            {% csrf_token %}
+            {{ salesform.non_field_errors }}
+                      {{ salesform.source.errors }}
+                      {{ salesform.source }}
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label require" for="inputEmail3">name</label>
+
+            <div class="col-sm-6">
+              {{ salesform.types.errors }}
+                {{ salesform.types }}
+
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label require" for="inputEmail3">tax_included</label>
+
+            <div class="col-sm-6">
+              {{ salesform.tax.errors }}
+                {{ salesform.tax }}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label require" for="inputEmail3">default</label>
+
+            <div class="col-sm-6">
+                {{ salesform.default.errors }}
+                {{ salesform.default }}
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="btn_save" class="col-sm-3 control-label"></label>
+            <div class="col-sm-6">
+              <button type="button" class="btn btn-info btn-flat" data-dismiss="modal">close</button>
+              <button type="submit" class="btn btn-primary btn-flat">submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div id="edit-saleType" class="modal fade" role="dialog" style="display: none;">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">add_new</h4>
+      </div>
+      <div class="modal-body">
+{#        <form class="form-horizontal" action='{{url("update-sales-type")}}' method="post" id="editsaletype">#}
+{#        <input type="hidden" value="{{csrf_token()}}" name="_token" >#}
+{#          #}
+{#          <div class="form-group">#}
+{#            <label class="col-sm-3 control-label require" for="inputEmail3">{{ trans('message.form.name') }}</label>#}
+{##}
+{#            <div class="col-sm-6">#}
+{#              <input type="text" class="form-control" name="sales_type" id="sales_type">#}
+{#            </div>#}
+{#          </div>#}
+{##}
+{#          <div class="form-group">#}
+{#            <label class="col-sm-3 control-label require" for="inputEmail3">{{ trans('message.table.tax_included') }}</label>#}
+{##}
+{#            <div class="col-sm-6">#}
+{#              <select class="form-control" name="tax_included" id="tax_included">#}
+{#                      #}
+{#                <option value="1" >Yes</option>#}
+{#                <option value="0" >No</option>#}
+{#              #}
+{#              </select>#}
+{#            </div>#}
+{#          </div>#}
+{#          <div class="form-group">#}
+{#            <label class="col-sm-3 control-label require" for="inputEmail3">{{ trans('message.table.default') }}</label>#}
+{##}
+{#            <div class="col-sm-6">#}
+{#                <select class="form-control" name="defaults" id="defaults">#}
+{#                    <option value="0" >No</option>#}
+{#                    <option value="1" >Yes</option>#}
+{#                </select>#}
+{#            </div>#}
+{#          </div>#}
+{#          <input type="hidden" name="type_id" id="type_id">#}
+{##}
+{#         #}
+{#          <div class="form-group">#}
+{#            <label for="btn_save" class="col-sm-3 control-label"></label>#}
+{#            <div class="col-sm-6">#}
+{#              <button type="button" class="btn btn-info btn-flat" data-dismiss="modal">{{ trans('message.form.close') }}</button>#}
+{#              <button type="submit" class="btn btn-primary btn-flat">{{ trans('message.form.update') }}</button>#}
+{#            </div>#}
+{#          </div>#}
+{#          @endif#}
+{#        </form>#}
+      </div>
+    </div>
+
+  </div>
+</div>
+      </div>
+
+    </section>
+    <div class="modal fade" id="confirmDelete" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Delete Parmanently</h4>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure about this ?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
+                <button type="button" class="btn btn-danger" id="confirm">delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+{% endblock %}
+{% block js %}
+    <script type="text/javascript">
+      $(function () {
+        $("#example1").DataTable({
+          "columnDefs": [ {
+            "targets": 3,
+            "orderable": false
+            } ],
+
+        });
+
+      });
+
+      $('.edit_saletype').on('click', function() {
+        var id = $(this).attr("id");
+
+        $.ajax({
+            url: '#',
+            data:{  // data that will be sent
+                id:id
+            },
+            type: 'POST',
+            dataType: 'JSON',
+            success: function (data) {
+
+                $('#sales_type').val(data.sales_type);
+                $('#tax_included').val(data.tax_included);
+                $('#type_id').val(data.id);
+                $('#defaults').val(data.defaults);
+
+                $('#edit-saleType').modal();
+            }
+        });
+
+    });
+
+      $('#addTex').validate({
+        rules: {
+            sales_type: {
+                required: true
+            },
+            tax_included: {
+                required: true
+            }
+        }
+    });
+
+      $('#editsaletype').validate({
+        rules: {
+            sales_type: {
+                required: true
+            },
+            tax_included: {
+                required: true
+            }
+        }
+    });
+
+    </script>
+{% endblock %}

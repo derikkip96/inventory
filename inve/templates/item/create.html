@@ -97,7 +97,7 @@
                       <label class="col-sm-3 control-label" for="inputEmail3">picture</label>
                       <div class="col-sm-9">
                            {{ itemform.image.errors }}
-                        {{ itemform.image }}
+                           {{ itemform.image }}
 {#                        <input type="file" class="form-control input-file-field" name="item_image">#}
                       </div>
                     </div>
@@ -118,19 +118,21 @@
                 <div class="row">
                 <div class="col-md-6">
                   <h4 class="text-info text-center">Sales Price Information</h4>
-                <form action="#" method="post" id="salesInfoForm" class="form-horizontal">
-                  <input type="hidden" value="{{csrf_token}}" name="_token" id="token">
-                  <input type="hidden" value="<?= isset($id) ? $id : ''?>" name="id" id="id">
-                  <input type="hidden" value="USD" name="curr_abrev" id="curr_abrev">
-                  <div class="box-body">
+                <form action="" method="post" id="salesInfoForm" class="form-horizontal">
+                     {% csrf_token %}
+
+                     {{form.non_field_errors }}
+
+                      {{form.source.errors }}
+                      {{form.source }}
 
                     <div class="form-group">
                       <label class="col-sm-3 control-label require" for="inputEmail3">sales_type</label>
 
                       <div class="col-sm-9">
-                        <select class="form-control select2" name="sales_type_id">
-                        <option value="">select one</option>
-                        </select>
+
+                        {{form.sales_type.errors }}
+                        {{form.sales_type }}
 
                       </div>
                     </div>
@@ -139,12 +141,20 @@
                       <label class="col-sm-3 control-label require" for="inputEmail3">price</label>
 
                       <div class="col-sm-9">
-                        <input type="text" placeholder="price" class="form-control valdation_check" id="price" name="price">
-                        <span id="price" style="color: red"></span>
+                          {{form.price.errors }}
+                          {{form.price }}
+
                       </div>
                     </div>
+                     <div class="form-group">
+                      <label class="col-sm-3 control-label require" for="inputEmail3">currency</label>
 
-                  </div>
+                      <div class="col-sm-9">
+                          {{form.curr_abrev.errors }}
+                          {{form.curr_abrev }}
+
+                      </div>
+                    </div>
                   <!-- /.box-body -->
                   <div class="box-footer">
                     <a href="#" class="btn btn-primary custom-btn">cancel</a>

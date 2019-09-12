@@ -1,0 +1,142 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block content %}
+    <!-- Main content -->
+    <section class="content">
+    <div class="box box-default">
+      <div class="box-body">
+        <div class="row">
+          <div class="col-md-12">
+           <div class="top-bar-title padding-bottom">supplier</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <div class="box">
+            <div class="box-body">
+              <h4 class="text-info text-center">create_suppiler</h4>
+                <!-- form start -->
+              <form method="post" id="myform1" class="form-horizontal">
+                   {% csrf_token %}
+                    {{ supform.non_field_errors }}
+
+                      {{supform.source.errors }}
+                      {{ supform.source }}
+
+              <div class="box-body">
+              <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="col-sm-3 control-label require" for="inputEmail3">supp_name</label>
+                  <div class="col-sm-6">
+                      {{ supform.name.errors }}
+                      {{ supform.name }}
+                    <span id="val_fname" style="color: red"></span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-3 control-label require" for="inputEmail3">email</label>
+                  <div class="col-sm-6">
+                      {{ supform.email.errors }}
+                      {{ supform.email }}
+                    <span id="val_lname" style="color: red"></span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-3 control-label" for="inputEmail3">phone</label>
+                  <div class="col-sm-6">
+                      {{ supform.contact.errors }}
+                      {{ supform.contact }}
+                    <span id="val_name" style="color: red"></span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-3 control-label require" for="inputEmail3">street</label>
+                  <div class="col-sm-6">
+                      {{ supform.address.errors }}
+                      {{ supform.address }}
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-3 control-label require" for="inputEmail3">city</label>
+                  <div class="col-sm-6">
+                      {{ supform.city.errors }}
+                      {{ supform.city }}
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-3 control-label require" for="inputEmail3">county</label>
+                  <div class="col-sm-6">
+                      {{ supform.state.errors }}
+                      {{ supform.state }}
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-3 control-label" for="inputEmail3">zipcode</label>
+                  <div class="col-sm-6">
+                      {{ supform.zipcode.errors }}
+                      {{ supform.zipcode }}
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-3 control-label require" for="inputEmail3">country</label>
+                  <div class="col-sm-6">
+                       {{ supform.country.errors }}
+                      {{ supform.country }}
+
+                   <div style="margin-top:10px;">
+                      <br><br>
+                      <a href="#" class="btn btn-info btn-flat">cancel</a>
+                      <button class="btn btn-primary btn-flat pull-right" type="submit">submit</button>
+                   </div>
+                  </div>
+                </div>
+
+              </div>
+              </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- /.box-footer-->
+
+      <!-- /.box -->
+
+    </section>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+    $(".select2").select2();
+    $('#myform1').validate({
+        rules: {
+            supp_name: {
+                required: true
+            },
+            email: {
+                required: true
+            },
+            address:{
+              required : true
+            },
+            city: {
+                required: true
+            },
+            state: {
+                required: true
+            },
+            country :{
+              required : true
+            }
+        }
+    });
+    </script>
+{% endblock %}

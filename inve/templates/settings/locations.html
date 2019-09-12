@@ -1,0 +1,286 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block content %}
+    <!-- Main content -->
+    <section class="content">
+
+      <div class="row">
+          <div class="col-md-3">
+         <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">general_setting</h3>
+          </div>
+          {% include 'settings/generalside.html' %}
+          <!-- /.box-body -->
+        </div>
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+
+          <div class="box box-default">
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-9">
+                 <div class="top-bar-title padding-bottom">Locations</div>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" data-toggle="modal" data-target="#add-tax" class="btn btn-block btn-default btn-flat btn-border-orange"><span class="fa fa-plus"> &nbsp;</span>add_new</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>name</th>
+                  <th>code</th>
+                  <th>email</th>
+                  <th>address</th>
+                  <th>phone</th>
+
+                  <th width="5%">action</th>
+                </tr>
+                </thead>
+                <tbody>
+                 {% for location in locations %}
+                <tr>
+                    <td>{{ location.name }}</td>
+                    <td>{{ location.code }}</td>
+                    <td>{{ location.Email }}</td>
+                    <td>{{ location.address }}</td>
+                    <td>{{ location.phone }}</td>
+                    <td></td>
+                {% empty %}
+                    <td colspan="6"><center>no locations</center></td>
+                </tr>
+                  {% endfor %}
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+      </div>
+
+<div id="add-tax" class="modal fade" role="dialog" style="display: none;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">add_new</h4>
+      </div>
+      <div class="modal-body">
+        <form method="post" id="myform1" class="form-horizontal">
+            {% csrf_token %}
+                {{ location_form.non_field_errors }}
+                      {{ location_form.source.errors }}
+                      {{ location_form.source }}
+              <div class="box-body">
+                <div class="form-group">
+                  <label class="col-sm-3 control-label require" for="inputEmail3">name</label>
+
+                  <div class="col-sm-9">
+                       {{ location_form.name.errors }}
+                        {{ location_form.name }}
+                    <span id="val_name" style="color: red"></span>
+                  </div>
+                </div>
+                   <div class="form-group">
+                  <label class="col-sm-3 control-label require" for="inputEmail3">code</label>
+
+                  <div class="col-sm-9">
+                       {{ location_form.code.errors }}
+                        {{ location_form.code }}
+                    <span id="val_name" style="color: red"></span>
+                  </div>
+                </div>
+                   <div class="form-group">
+                  <label class="col-sm-3 control-label require" for="inputEmail3">address </label>
+
+                  <div class="col-sm-9">
+                      {{ location_form.address.errors }}
+                        {{ location_form.address }}
+                    <span id="val_name" style="color: red"></span>
+                  </div>
+                </div>
+                    <div class="form-group">
+                  <label class="col-sm-3 control-label require" for="inputEmail3">phone </label>
+
+                  <div class="col-sm-9">
+                      {{ location_form.phone.errors }}
+                        {{ location_form.phone }}
+                    <span id="val_name" style="color: red"></span>
+                  </div>
+                </div>
+                  <div class="form-group">
+                <label class="col-sm-3 control-label require" for="inputEmail3">email</label>
+
+                    <div class="col-sm-9">
+                        {{ location_form.Email.errors }}
+                        {{ location_form.Email }}
+                    </div>
+              </div>
+
+
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <a href="#" class="btn btn-info btn-flat">cancel</a>
+                <button class="btn btn-primary pull-right btn-flat" type="submit">submit</button>
+              </div>
+              <!-- /.box-footer -->
+            </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div id="edit-tax" class="modal fade" role="dialog" style="display: none;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">update_tax</h4>
+      </div>
+      <div class="modal-body">
+           <form method="post" id="myform1" class="form-horizontal">
+            {% csrf_token %}
+                {{ taxform.non_field_errors }}
+                      {{ taxform.source.errors }}
+                      {{ taxform.source }}
+              <div class="box-body">
+                <div class="form-group">
+                  <label class="col-sm-3 control-label require" for="inputEmail3">name</label>
+
+                  <div class="col-sm-9">
+                       {{ taxform.name.errors }}
+                        {{ taxform.name }}
+                    <span id="val_name" style="color: red"></span>
+                  </div>
+                </div>
+                   <div class="form-group">
+                  <label class="col-sm-3 control-label require" for="inputEmail3">Tax rate (%) </label>
+
+                  <div class="col-sm-9">
+                      {{ taxform.tax_rate.errors }}
+                        {{ taxform.tax_rate }}
+                    <span id="val_name" style="color: red"></span>
+                  </div>
+                </div>
+                  <div class="form-group">
+                <label class="col-sm-3 control-label require" for="inputEmail3">default</label>
+
+                    <div class="col-sm-6">
+                        {{ taxform.default.errors }}
+                        {{ taxform.default }}
+                    </div>
+              </div>
+
+
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <a href="#" class="btn btn-info btn-flat">cancel</a>
+                <button class="btn btn-primary pull-right btn-flat" type="submit">submit</button>
+              </div>
+              <!-- /.box-footer -->
+            </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+      </div>
+
+    </section>
+
+        <div class="modal fade" id="confirmDelete" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Delete Parmanently</h4>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure about this ?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
+                <button type="button" class="btn btn-danger" id="confirm">delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+      $(function () {
+        $("#example1").DataTable({
+          "columnDefs": [ {
+            "targets": 3,
+            "orderable": false
+            } ],
+        });
+
+      });
+
+      $('.edit_tax').on('click', function() {
+        var id = $(this).attr("id");
+
+        $.ajax({
+            url: '/edit/tax',
+            data:{                  // data that will be sent
+                id:id
+            },
+            type: 'POST',
+            dataType: 'JSON',
+            success: function (data) {
+
+                $('#tax_nm').val(data.name);
+                $('#tax_rate').val(data.tax_rate);
+                $('#tax_id').val(data.id);
+                $('#defaults').val(data.defaults);
+
+                $('#edit-tax').modal();
+            }
+        });
+
+    });
+
+      $('#addTex').validate({
+        rules: {
+            name: {
+                required: true
+            },
+            tax_rate: {
+                required: true
+            }
+        }
+    });
+
+      $('#editTex').validate({
+        rules: {
+            name: {
+                required: true
+            },
+            tax_rate: {
+                required: true
+            }
+        }
+    });
+
+    </script>
+{% endblock %}

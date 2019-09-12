@@ -24,10 +24,10 @@ urlpatterns = [
     path('', include('inve.urls', namespace='inventory')),
     path('',include('account.urls',namespace = 'account')),
     # path('', include('payment.urls')),
-    # path('', include('order.urls')),
+    path('', include('order.urls')),
     # path('', include('sales.urls')),
     # path('', include('shipment.urls')),
-    # path('', include('supplier.urls')),
+    path('', include('customer.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

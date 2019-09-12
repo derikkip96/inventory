@@ -6,7 +6,7 @@ from django.db import models
 class ItemUnit(models.Model):
     name = models.CharField(max_length=20)
     abbr =  models.CharField(max_length=20)
-    inactive = models.BooleanField(default=True)
+    inactive = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('name',)
@@ -28,10 +28,14 @@ class Category(models.Model):
         return self.description
 
 class Tax(models.Model):
+    CHOICES = (
+        (False,'No'),
+        (True,'Yes')
+    )
     name = models.CharField(max_length=200)
     tax_rate = models.DecimalField(max_digits=10, decimal_places=2)
-    excempt = models.BooleanField(default=False)
-    defaults = models.BooleanField(default=False)
+    excempt = models.BooleanField(choices=CHOICES, default=False)
+    defaults = models.BooleanField(choices=CHOICES, default=False)
 
     class Meta:
         ordering = ('-name',)
@@ -47,8 +51,8 @@ class StockMaster(models.Model):
     description = models.TextField(max_length=50)
     long_description = models.TextField()
     units = models.ForeignKey(ItemUnit, on_delete=models.CASCADE)
-    inactive = models.BooleanField(default=True)
-    deleted_status = models.BooleanField(default=True)
+    inactive = models.BooleanField(default=False)
+    deleted_status = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -63,7 +67,7 @@ class Item(models.Model):
     stock_id = models.CharField(max_length=50, primary_key=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     image = models.FileField(upload_to='uploads/item_image')
-    inactive = models.SmallIntegerField()
+    inactive = models.BooleanField(default=False)
     deleted_status = models.BooleanField(default=True)
 
     class Meta:

@@ -4,13 +4,20 @@ from inve.models import StockMaster,Location
 from customer.models import Supplier
 
 # Create your models here.
+
 from inve.models import Tax, Item
 # Create your models here.
 class SalesType(models.Model):
+    CHOICES = (
+        (False, 'No'),
+        (True, 'Yes')
+    )
     types = models.CharField(max_length=100)
-    tax = models.IntegerField()
-    factor = models.DecimalField(max_digits=10, decimal_places=2)
-    default = models.BooleanField()
+    tax = models.BooleanField(choices=CHOICES, default=False)
+    default = models.BooleanField(choices=CHOICES)
+
+    def __str__(self):
+        return self.types
 
 class Debtor(models.Model):
     name = models.CharField(max_length=50)
@@ -23,6 +30,25 @@ class Debtor(models.Model):
     vat_no = models.CharField(max_length=100)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+class Payment(models.Model):
+    payment_type = models.IntegerField()
+    order_reference = models.CharField(max_length=50)
+    invoice_reference = models.CharField(max_length=50)
+    payment_date = models.DateTimeField()
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    person = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, related_name='payments',)
+    customer = models.ForeignKey(Debtor, on_delete=models.CASCADE, related_name='payments',)
+    reference = models.CharField(max_length=50)
+
+class PaymentTerm(models.Model):
+    name = models.CharField(max_length=100)
+    defaults = models.IntegerField()
+
+class InvoicePaymentTerms(models.Model):
+    terms = models.CharField(max_length=50)
+    days_before_due = models.IntegerField()
+    defaults = models.BooleanField(default=True)
 
 
 
@@ -41,9 +67,9 @@ class PurchasesOrder(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
 class PurchasesOrderDetail(models.Model):
-    TAX_CHOICES = (
-        ('Y', 'Yes'),
-        ('N', 'No'),
+    CHOICES = (
+        (False, 'No'),
+        (True, 'Yes')
     )
     supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
     person = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
@@ -54,22 +80,22 @@ class PurchasesOrderDetail(models.Model):
     into_stock_loc = models.CharField(max_length=50)
     delivery_address = models.CharField(max_length=100)
     total = models.DecimalField(max_digits=10, decimal_places=2)
-    tax_included= models.CharField(max_length=20, choices=TAX_CHOICES)
+    tax_included= models.CharField(max_length=20, choices=CHOICES)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
 class PurchasePrice(models.Model):
     stock_id = models.ForeignKey(StockMaster,on_delete=models.CASCADE, to_field='stock_id')
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    supplier_uom = models.CharField(max_length=50)
+    supplier = models.CharField(max_length=50)
     conversion_factor = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     supplier_description = models.CharField(max_length=50)
 
 class SalesOrder(models.Model):
     trans_type = models.CharField(max_length=50)
-    debtor = models.ForeignKey(Debtor, on_delete=models.CASCADE)
+    debtor = models.ForeignKey(Debtor, on_delete=models.CASCADE, related_name = 'salesorders')
     branch = models.IntegerField()
-    person = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    person = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name = 'salesorders' )
     version = models.SmallIntegerField()
     reference = models.CharField(max_length=50)
     customer_ref = models.CharField(max_length=50, blank=True, null=True)
@@ -84,7 +110,7 @@ class SalesOrder(models.Model):
     deliver_to = models.CharField(max_length=50, blank=True, null=True)
     from_stk_loc = models.CharField(max_length=50, blank=True, null=True)
     delivery_date = models.DateTimeField(blank=True, null=True)
-    # payment = models.ForeignKey(Payment, on_delete=models.CASCADE)
+    payment = models.ForeignKey(Payment, on_delete=models.CASCADE)
     total = models.DecimalField(max_digits=5, decimal_places=2)
     paid_amount = models.DecimalField(max_digits=5, decimal_places=2)
     payment_term = models.SmallIntegerField()

@@ -1,0 +1,219 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block content %})
+
+    <!-- Main content -->
+    <section class="content">
+
+      <div class="row">
+         <div class="col-md-3">
+         <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">finance_setting</h3>
+          </div>
+{#         include#}
+             {% include 'settings/financebar.html' %}
+          <!-- /.box-body -->
+        </div>
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+          <div class="box box-default">
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-9">
+                 <div class="top-bar-title padding-bottom">payment_methods</div>
+                </div>
+                <div class="col-md-3">
+
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#add-unit" class="btn btn-block btn-default btn-flat btn-border-orange"><span class="fa fa-plus"> &nbsp;</span>{{ trans('message.table.add_new') }}</a>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>name</th>
+                  <th>default</th>
+                  <th width="5%">action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>
+
+                      <a title="edit" href="javascript:void(0)"  class="btn btn-xs btn-primary edit_unit" id="#" ><span class="fa fa-edit"></span></a> &nbsp;
+                      <form method="POST" action="#" accept-charset="UTF-8" style="display:inline">
+                          {!! csrf_field() !!}
+                          <button title="Delete" class="btn btn-xs btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete" data-title="delete_method_header" data-message="delete_method">
+                              <i class="glyphicon glyphicon-trash"></i>
+                          </button>
+                      </form>
+                  </td>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.nav-tabs-custom -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+    </section>
+
+<div id="add-unit" class="modal fade" role="dialog" style="display: none;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">add_new</h4>
+      </div>
+      <div class="modal-body">
+        <form action="#" method="post" id="addUnit" class="form-horizontal">
+          {% csrf_token %}
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label require" for="inputEmail3">name</label>
+
+            <div class="col-sm-6">
+              <input type="text" placeholder="name" class="form-control" name="name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label require" for="inputEmail3">default</label>
+            <div class="col-sm-6">
+                <select class="form-control" name="defaults" >
+                    <option value="0" >No</option>
+                    <option value="1" >Yes</option>
+                </select>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="btn_save" class="col-sm-3 control-label"></label>
+            <div class="col-sm-6">
+              <button type="button" class="btn btn-info btn-flat" data-dismiss="modal">close</button>
+              <button type="submit" class="btn btn-primary btn-flat">submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div id="edit-unit" class="modal fade" role="dialog" style="display: none;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">add_new</h4>
+      </div>
+      <div class="modal-body">
+{#        <form action="{{ url('payment/method/update') }}" method="post" id="editUnit" class="form-horizontal">#}
+{#            {!! csrf_field() !!}#}
+{#          #}
+{#          <div class="form-group">#}
+{#            <label class="col-sm-3 control-label require" for="inputEmail3">{{ trans('message.table.name') }}</label>#}
+{##}
+{#            <div class="col-sm-6">#}
+{#              <input type="text" placeholder="Name" class="form-control" name="name" id="name">#}
+{#            </div>#}
+{#          </div>#}
+{#          <div class="form-group">#}
+{#            <label class="col-sm-3 control-label require" for="inputEmail3">{{ trans('message.table.default') }}</label>#}
+{#            <div class="col-sm-6">#}
+{#                <select class="form-control" name="defaults" id="defaults">#}
+{#                    <option value="0" >No</option>#}
+{#                    <option value="1" >Yes</option>#}
+{#                </select>#}
+{#            </div>#}
+{#          </div>#}
+{#          <input type="hidden" name="id" id="m_id">#}
+{##}
+{#          #}
+{#          <div class="form-group">#}
+{#            <label for="btn_save" class="col-sm-3 control-label"></label>#}
+{#            <div class="col-sm-6">#}
+{#              <button type="button" class="btn btn-info btn-flat" data-dismiss="modal">{{ trans('message.form.close') }}</button>#}
+{#              <button type="submit" class="btn btn-primary btn-flat">{{ trans('message.form.submit') }}</button>#}
+{#            </div>#}
+{#          </div>#}
+{#        </form>#}
+      </div>
+
+    </div>
+
+  </div>
+</div>
+    @include('layouts.includes.message_boxes')
+{% endblock %}
+{% block js %}
+    <script type="text/javascript">
+      $(function () {
+        $("#example1").DataTable({
+          "columnDefs": [ {
+            "targets": 2,
+            "orderable": false
+            } ],
+        });
+
+      });
+
+       $('#addUnit').validate({
+            rules: {
+                name: {
+                    required: true
+                }
+            }
+        });
+
+       $('.edit_unit').on('click', function() {
+        var id = $(this).attr("id");
+
+        $.ajax({
+            url: '#',
+            data:{  // data that will be sent
+                id:id
+            },
+            type: 'POST',
+            dataType: 'JSON',
+            success: function (data) {
+
+                $('#name').val(data.name);
+                $('#defaults').val(data.defaults);
+                $('#m_id').val(data.id);
+
+                $('#edit-unit').modal();
+            }
+        });
+
+        $('#editUnit').validate({
+            rules: {
+                name: {
+                    required: true
+                }
+            }
+        });
+
+    });
+    </script>
+{% endblock %}
