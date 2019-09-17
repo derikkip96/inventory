@@ -51,7 +51,6 @@ class CreateUnit(FormView):
         return render(request, self.template_name, {'unitform': unitform})
 class Item(FormView):
     form_class = ItemForm
-    form_class2 = SalesPriceForm
     template_name='item/create.html'
     initial = {'key':'value'}
     def get(self,request,*args,**kwargs):
@@ -74,22 +73,6 @@ class Item(FormView):
             )
             return HttpResponseRedirect('/')
         return render(request,self.template_name,{'itemform':itemform})
-
-class SalesPriceView(TemplateView):
-    form_class = SalesPriceForm
-    template_name = 'item/create.html'
-    initial = {'key': 'value'}
-
-    def get(self,request,*args,**kwargs):
-        form = self.form_class(initial=self.initial)
-        return render(request,self.template_name, {'form':form})
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/')
-
-        return render(request, self.template_name, {'form': form})
 
 
 class TaxUpdateView(UpdateView):

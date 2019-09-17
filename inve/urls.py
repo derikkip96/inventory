@@ -4,7 +4,7 @@ from inve.views import (CreateUnit,
                         CreateCategory,
                         Item,
                         TaxUpdateView,
-                        FinanceView,LocationView,SalesPriceView
+                        FinanceView,LocationView
                         )
 
 app_name = 'inve'
@@ -16,6 +16,5 @@ urlpatterns = [
     path('item/create', Item.as_view(), name='item_create'),
     path('tax/create',TaxUpdateView.as_view(),name='tax_edit'),
     path('settings/finance',FinanceView.as_view(),name='setting_finace'),
-    path('settings/location',LocationView.as_view(),name = 'location'),
-    path('sales/create',SalesPriceView.as_view(), name ='sales_price')
+    path('settings/location',LocationView.as_view(),name = 'location')
 ]

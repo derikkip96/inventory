@@ -4,6 +4,7 @@ from django.forms import ModelChoiceField
 
 
 class ItemForm(forms.ModelForm):
+    prefix = 'itemform'
     category = forms.ModelChoiceField(queryset=Category.objects.all(), empty_label="please select unit",
                                       to_field_name="id", widget=forms.Select(
             attrs={'class': 'form-control valdation_check'}))
@@ -94,12 +95,16 @@ class StockForm(forms.ModelForm):
         fields = ['category','category','unit','tax','long_description','stock_id']
 
 class TaxForm(forms.ModelForm):
-    STATUS_CHOICES=(
-        (False,'No'),
-        (True,'Yes')
+    CHOICES=(
+        (0,'No'),
+        (1,'Yes')
     )
-    default = forms.ChoiceField(choices=STATUS_CHOICES, label="", initial='', widget=forms.Select( attrs={'class': 'form-control valdation_check'
-                }), required=True)
+    default = forms.CharField(
+        max_length=9,
+        widget=forms.Select(choices=CHOICES,
+        attrs={'class': 'form-control valdation_check'}
+        ),
+    )
     class Meta:
         model = Tax
         fields = ['name','tax_rate','default']

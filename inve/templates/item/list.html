@@ -16,7 +16,7 @@
 {#					<a href="{{ URL::to('itemimport') }}" class="btn btn-block btn-default btn-flat btn-border-purple"><span class="fa fa-upload"> &nbsp;</span>{{ trans('message.extra_text.import_new_item') }}</a>#}
 				</div> -->
 				<div class="col-md-6 col-sm-6 col-xs-12 top_BTN">
-					<a href="#" class="btn btn-block btn-default btn-flat btn-border-orange"><span class="fa fa-plus"> &nbsp;</span>add_new_item'</a>
+					<a href="{% url 'inve:item_create' %}" class="btn btn-block btn-default btn-flat btn-border-orange"><span class="fa fa-plus"> &nbsp;</span>add_new_item</a>
 				</div>
 
         <div class="col-md-6 col-sm-6 col-xs-12 top_BTN">
@@ -107,16 +107,15 @@
                     <span class='label label-success'>active</span>
                     <span class='label label-danger'>inactive</span>
                   </td>
-
                   <td class="text-center">
-                      <a title="edit" class="btn btn-xs btn-primary" href='#'><span class="fa fa-edit"></span></a> &nbsp;
-                      <form method="POST" action="#" accept-charset="UTF-8" style="display:inline">
-                          {{ csrf_field }}
-                          <button title="Delete" class="btn btn-xs btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete" data-title="delete_item_header" data-message="delete_item">
-                              <i class="glyphicon glyphicon-trash"></i>
-                          </button> &nbsp;
-                      </form>
+                  <a title="edit" class="btn btn-xs btn-primary edit_saletype" id="#" href="javascript:void(0)"><span class="fa fa-edit"></span></a> &nbsp;
 
+                  <form method="POST" action="#" accept-charset="UTF-8" style="display:inline">
+                     {% csrf_token %}
+                      <button title="Delete" class="btn btn-xs btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete" data-title="delete_sales_type_header" data-message="delete_sales_type">
+                           <i class="fa fa-trash-o" style="font-size:14px;color:red"></i>
+                      </button>
+                  </form>
                   </td>
                 </tr>
 

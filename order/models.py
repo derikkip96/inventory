@@ -9,12 +9,12 @@ from inve.models import Tax, Item
 # Create your models here.
 class SalesType(models.Model):
     CHOICES = (
-        (False, 'No'),
-        (True, 'Yes')
+        (0, 'No'),
+        (1, 'Yes')
     )
     types = models.CharField(max_length=100)
-    tax = models.BooleanField(choices=CHOICES, default=False)
-    default = models.BooleanField(choices=CHOICES)
+    tax = models.BooleanField(max_length = 9, choices=CHOICES, default=False)
+    default = models.BooleanField(max_length=9, choices=CHOICES, default = False)
 
     def __str__(self):
         return self.types

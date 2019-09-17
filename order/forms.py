@@ -2,13 +2,27 @@ from django import forms
 from order.models import Debtor, SalesType,SalesPrice
 
 class SalesTypeForm(forms.ModelForm):
-    tax = forms.ChoiceField()
-    default = forms.ChoiceField()
+    CHOICES = (
+        (0, 'No'),
+        (1, 'Yes')
+    )    
+    tax = forms.CharField(
+        max_length=9,
+        widget=forms.Select(choices=CHOICES,
+        attrs={'class': 'form-control valdation_check'}
+        ),
+    )
+    default = forms.CharField(
+        max_length=9,
+        widget=forms.Select(choices=CHOICES,
+        attrs={'class': 'form-control valdation_check'}
+        ),
+    )
     class Meta:
         model = SalesType
         fields = ['types','tax','default']
         widgets = {
-            'type': forms.TextInput(
+            'types': forms.TextInput(
                 attrs={
                     'placeholder': 'tax type',
                     'class': 'form-control valdation_check'

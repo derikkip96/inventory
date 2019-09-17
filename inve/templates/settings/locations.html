@@ -53,7 +53,16 @@
                     <td>{{ location.Email }}</td>
                     <td>{{ location.address }}</td>
                     <td>{{ location.phone }}</td>
-                    <td></td>
+                    <td>
+                    <a title="edit" class="btn btn-xs btn-primary edit_saletype" id="#" href="javascript:void(0)"><span class="fa fa-edit"></span></a> &nbsp;
+
+                    <form method="POST" action="#" accept-charset="UTF-8" style="display:inline">
+                      {% csrf_token %}
+                        <button title="Delete" class="btn btn-xs btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete" data-title="delete_sales_type_header" data-message="delete_sales_type">
+                            <i class="fa fa-trash-o" style="font-size:14px;color:red"></i>
+                        </button>
+                    </form>
+                    </td>
                 {% empty %}
                     <td colspan="6"><center>no locations</center></td>
                 </tr>

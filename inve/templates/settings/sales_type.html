@@ -44,26 +44,27 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php
-                  $type = [1,2];
-                ?>
-
+                  {% for sale in sales_types %}
+                
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td>{{sale.types}}</td>
+                  <td>{% if sale.tax == 1 %} yes {% else %} No {% endif %}</td>
+                  <td>{% if sale.default == 1 %} yes {% else %} No {% endif %}</td>
+                   
                   <td>
-
                   <a title="edit" class="btn btn-xs btn-primary edit_saletype" id="#" href="javascript:void(0)"><span class="fa fa-edit"></span></a> &nbsp;
 
                   <form method="POST" action="#" accept-charset="UTF-8" style="display:inline">
                      {% csrf_token %}
                       <button title="Delete" class="btn btn-xs btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete" data-title="delete_sales_type_header" data-message="delete_sales_type">
-                          <i class="glyphicon glyphicon-trash"></i>
+                           <i class="fa fa-trash-o" style="font-size:14px;color:red"></i>
                       </button>
                   </form>
                   </td>
+                  {% empty %}
+                        <td colspan="3"><center>no sales type available</center></td>
                 </tr>
+                 {% endfor %}
                 </tfoot>
               </table>
             </div>

@@ -7,9 +7,11 @@ class ItemUnit(models.Model):
     name = models.CharField(max_length=20)
     abbr =  models.CharField(max_length=20)
     inactive = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('created',)
 
     def __str__(self):
         return self.name
@@ -18,9 +20,11 @@ class Category(models.Model):
     description= models.CharField(max_length=20)
     dflt_units = models.ForeignKey(ItemUnit, on_delete=models.CASCADE)
     inactive = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ('-description',)
+        ordering = ('-created',)
         verbose_name = 'category'
         verbose_name_plural = 'categories'
 
@@ -29,16 +33,18 @@ class Category(models.Model):
 
 class Tax(models.Model):
     CHOICES = (
-        (False,'No'),
-        (True,'Yes')
+        (0,'No'),
+        (1,'Yes')
     )
     name = models.CharField(max_length=200)
     tax_rate = models.DecimalField(max_digits=10, decimal_places=2)
     excempt = models.BooleanField(choices=CHOICES, default=False)
-    defaults = models.BooleanField(choices=CHOICES, default=False)
+    default = models.BooleanField(max_length=9, choices=CHOICES, default = False)  
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True) 
 
     class Meta:
-        ordering = ('-name',)
+        ordering = ('-created',)
 
     def __str__(self):
         return self.name
@@ -69,9 +75,11 @@ class Item(models.Model):
     image = models.FileField(upload_to='uploads/item_image')
     inactive = models.BooleanField(default=False)
     deleted_status = models.BooleanField(default=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ('-description',)
+        ordering = ('-created',)
 
     def __str__(self):
         return self.description
@@ -89,6 +97,8 @@ class StockTransfer(models.Model):
     note = models.TextField()
     qty = models.DecimalField(max_digits=10, decimal_places=2)
     transfer_date = models.DateTimeField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
 class Location(models.Model):
     code = models.CharField(max_length=10)
@@ -100,10 +110,9 @@ class Location(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ('-name',)
+        ordering = ('-created',)
 
     def __str__(self):
         return self.name
-
 
 

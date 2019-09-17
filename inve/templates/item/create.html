@@ -121,18 +121,18 @@
                 <form action="" method="post" id="salesInfoForm" class="form-horizontal">
                      {% csrf_token %}
 
-                     {{form.non_field_errors }}
+                     {{salespriceform.non_field_errors }}
 
-                      {{form.source.errors }}
-                      {{form.source }}
+                      {{salespriceform.source.errors }}
+                      {{salespriceform.source }}
 
                     <div class="form-group">
                       <label class="col-sm-3 control-label require" for="inputEmail3">sales_type</label>
 
                       <div class="col-sm-9">
 
-                        {{form.sales_type.errors }}
-                        {{form.sales_type }}
+                        {{salespriceform.sales_type.errors }}
+                        {{salespriceform.sales_type }}
 
                       </div>
                     </div>
@@ -141,8 +141,8 @@
                       <label class="col-sm-3 control-label require" for="inputEmail3">price</label>
 
                       <div class="col-sm-9">
-                          {{form.price.errors }}
-                          {{form.price }}
+                          {{salespriceform.price.errors }}
+                          {{salespriceform.price }}
 
                       </div>
                     </div>
@@ -150,8 +150,8 @@
                       <label class="col-sm-3 control-label require" for="inputEmail3">currency</label>
 
                       <div class="col-sm-9">
-                          {{form.curr_abrev.errors }}
-                          {{form.curr_abrev }}
+                          {{salespriceform.curr_abrev.errors }}
+                          {{salespriceform.curr_abrev }}
 
                       </div>
                     </div>

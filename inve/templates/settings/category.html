@@ -48,9 +48,18 @@
                 <td>{{ category.description }}</td>
                 <td>{{ category.dflt_units }}</td>
                     <td>{% if category.inactive %} <h5>Yes</h5> {% else %}<h5>No</h5>  {% endif %}</td>
-                <td></td>
+                <td>
+                  <a title="edit" class="btn btn-xs btn-primary edit_saletype" id="#" href="javascript:void(0)"><span class="fa fa-edit"></span></a> &nbsp;
+
+                  <form method="POST" action="#" accept-charset="UTF-8" style="display:inline">
+                     {% csrf_token %}
+                      <button title="Delete" class="btn btn-xs btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete" data-title="delete_sales_type_header" data-message="delete_sales_type">
+                           <i class="fa fa-trash-o" style="font-size:14px;color:red"></i>
+                      </button>
+                  </form>
+                  </td>
                 {% empty %}
-                    <td colspan="3"> <center>no taxes available</center></td>
+                    <td colspan="3"> <center>no categories available</center></td>
                 </tr>
                   {% endfor %}
                 </tfoot>
